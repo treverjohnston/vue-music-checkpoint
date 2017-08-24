@@ -1,36 +1,129 @@
 <template>
   <div class="home">
-    <!-- YOU WILL PROBABLY END UP WITH SOMETHING LIKE THIS -->
-    <my-tunes class="my-tunes"></my-tunes>
-    <itunes class="itunes"></itunes>
+    <div class="container-fluid">
+      <div class="row">
+        <div v-for="song in songs">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="song">
+              <div class="row">
+                <div class=" col-xs-6">
+                  <img :src="song.albumArt" class="img-responsive image fade" alt="album art ">
+                </div>
+                <div class="col-xs-6">
+                  <div class="title text-center fade">
+                    <h4>{{song.title}}</h4>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row"> -->
+                <div class="col-xs-12">
+                  <div class="replacement">
+                    <div class="change">
+                      <h3>{{song.artist}}</h3>
+                      <h4>{{song.name}}</h4>
+                      <h5>Album Cost: {{song.price}}</h5>
+                      <audio controls>
+                        <source :src="song.preview" type="audio/mp3 ">
+                      </audio>
+                    </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'home',
-  data () {
-    return {
-      
+  export default {
+    name: 'home',
+    data() {
+      return {
+        artist: ''
+      }
+    },
+    computed: {
+      songs() {
+        return this.$store.state.results
+      }
     }
   }
-}
+
 </script>
 
 
 <style>
-.my-tunes{
-  display: inline-block;
-  min-height: 500px;
-  min-width: 50%;
-  background: green;
-}
+  body {
+    background-image: url("../assets/images/background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Slabo 27px', serif;
+  }
 
-.itunes{
-  display: inline-block;
-  background: red;
-  min-height: 500px;
-  min-width: 45%;
-}
+  .title {
+    padding: 1rem 0 1rem 0;
+    margin: 4rem 1rem 1rem 1rem;
+    background-color: white;
+    border-radius: 5px;
+  }
 
+  .song {
+    margin: 0rem 2rem 5rem 2rem;
+    background-image: url("../assets/images/songTwo.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    padding: 5rem 1rem 2rem 1rem;
+  }
+
+  .fade{
+    opacity: 1;
+    /* display: block;  */
+    /* width: 30rem;
+    height: 30rem;  */
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+  .image {
+    
+    min-height: 15rem;
+    min-width: 15rem;
+    margin: 0 auto;
+    border-radius: 5px;
+  }
+
+  .replacement {
+    transition: .5s ease;
+    opacity: 0;
+    /* position: absolute; */
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%) */
+    /* margin-bottom: -10rem; */
+  }
+
+  .change {
+    background-color: white;
+    color: black;
+    /* font-size: 16px; */
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 0 0rem 3rem 0rem;
+    border-radius: 5px;
+  }
+
+  .song:hover .fade {
+    opacity: 0.3;
+  }
+
+  .song:hover .replacement {
+    opacity: 1;
+  }
 </style>

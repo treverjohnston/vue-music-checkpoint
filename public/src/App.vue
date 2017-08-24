@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <home></home>
+    <search></search>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Home from './components/Home'
+import Search from './components/Search'
 
 export default {
   name: 'app',
   components: {
-    Home
+    Search
   }
 }
 </script>
