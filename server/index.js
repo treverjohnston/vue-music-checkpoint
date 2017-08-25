@@ -23,6 +23,6 @@ server.listen(port, ()=>{
 //TODO
 
 var songRouter = require('./routes/songs')
-server.use('/api/songs', blogsRouter)
+server.use('/api/songs', songRouter)
 
 

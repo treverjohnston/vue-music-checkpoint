@@ -5,8 +5,14 @@ var server = express();
 
 
 var songSchema = new mongoose.Schema({
+    id: {type: Number, required: true},
+    kind: {type: String, required: true},
     title: {type: String, required: true},
-    body: {type: String, required: true}
+    albumArt: {type: String, required: true},
+    artist: {type: String, required: true},
+    album: {type: String, required: true},
+    price: {type: String, required: true},
+    preview: {type: String, required: true}
 })
 
 var Songs = mongoose.model('Song', songSchema)
@@ -17,7 +23,7 @@ router.get('/', function(req, res, next) {
       res.send(songs)
     })
     .catch(next)
-})
+}) 
 
 router.post('/', function(req, res, next) {
     Songs.create(req.body)

@@ -1,129 +1,58 @@
 <template>
   <div class="home">
     <div class="container-fluid">
-      <div class="row">
-        <div v-for="song in songs">
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="song">
-              <div class="row">
-                <div class=" col-xs-6">
-                  <img :src="song.albumArt" class="img-responsive image fade" alt="album art ">
-                </div>
-                <div class="col-xs-6">
-                  <div class="title text-center fade">
-                    <h4>{{song.title}}</h4>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="row"> -->
-                <div class="col-xs-12">
-                  <div class="replacement">
-                    <div class="change">
-                      <h3>{{song.artist}}</h3>
-                      <h4>{{song.name}}</h4>
-                      <h5>Album Cost: {{song.price}}</h5>
-                      <audio controls>
-                        <source :src="song.preview" type="audio/mp3 ">
-                      </audio>
-                    </div>
-                  <!-- </div> -->
-                </div>
-              </div>
+      <div v-if="loggedIn">
+        <div class="row">
+          <div class="col-xs-9">
+            <div class="search">
+              <results></results>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="list">
+              <tunes></tunes>
             </div>
           </div>
         </div>
       </div>
+      <div v-else>
+        <notresults></notresults>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
+  import Results from './Results'
+  import Notresults from './Notresults'
+  import Tunes from './Tunes'
   export default {
     name: 'home',
     data() {
       return {
-        artist: ''
+        loggedIn: true
       }
     },
-    computed: {
-      songs() {
-        return this.$store.state.results
-      }
+    components: {
+      Results,
+      Tunes,
+      Notresults
     }
   }
 
 </script>
 
 
-<style>
-  body {
-    background-image: url("../assets/images/background.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: 'Slabo 27px', serif;
-  }
-
-  .title {
-    padding: 1rem 0 1rem 0;
-    margin: 4rem 1rem 1rem 1rem;
-    background-color: white;
+<style scoped>
+  .list {
+    background-color: rgba(255, 255, 255, .2);
     border-radius: 5px;
   }
 
-  .song {
-    margin: 0rem 2rem 5rem 2rem;
-    background-image: url("../assets/images/songTwo.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 4px;
-    padding: 5rem 1rem 2rem 1rem;
-  }
-
-  .fade{
-    opacity: 1;
-    /* display: block;  */
-    /* width: 30rem;
-    height: 30rem;  */
-    transition: .5s ease;
-    backface-visibility: hidden;
-  }
-
-  .image {
-    
-    min-height: 15rem;
-    min-width: 15rem;
-    margin: 0 auto;
+  .search {
+    background-color: rgba(255, 255, 255, .2);
     border-radius: 5px;
+    padding: 2rem 0 2rem 0;
   }
 
-  .replacement {
-    transition: .5s ease;
-    opacity: 0;
-    /* position: absolute; */
-    /* top: 50%;
-    left: 50%; */
-    /* transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%) */
-    /* margin-bottom: -10rem; */
-  }
-
-  .change {
-    background-color: white;
-    color: black;
-    /* font-size: 16px; */
-    padding: 1rem 1rem 1rem 1rem;
-    margin: 0 0rem 3rem 0rem;
-    border-radius: 5px;
-  }
-
-  .song:hover .fade {
-    opacity: 0.3;
-  }
-
-  .song:hover .replacement {
-    opacity: 1;
-  }
 </style>

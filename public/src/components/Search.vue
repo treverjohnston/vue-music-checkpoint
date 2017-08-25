@@ -18,6 +18,7 @@
         name: 'search',
         data() {
             return {
+                artist: ''
             }
         },
         methods: {
@@ -35,8 +36,15 @@
 
 </script>
 <style scoped>
-    .form{
-        padding-bottom: 5rem;
+    .form {
+        padding: 2rem 0 3rem 0;
     }
-
+    input{
+        background-color: transparent;
+        color: white;
+    }
+    .btn {
+        background-color: transparent;
+        color: white;
+    }
 </style>
