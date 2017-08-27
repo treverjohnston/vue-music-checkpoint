@@ -6,15 +6,15 @@
                     <div class="col-xs-12">
                         <div class="playlist">
                             <div class="row">
-                                <div class="col-xs-8">
+                                <div class="col-xs-10">
                                     <h5>{{tune.title}}</h5>
                                     <p>{{tune.artist}}</p>
                                 </div>
                                 <div class="col-xs-1">
-                                    <button class="btn btn-default vote" @click="promoteTrack(tune._id)">+</button>
+                                    <button class="btn btn-default vote" @click="promoteTrack(tune._id, tune, tunes)">+</button>
                                 </div>
                                 <div class="col-xs-1">
-                                    <button class="btn btn-default vote" @click="demoteTrack(tune._id)">-</button>
+                                    <button class="btn btn-default vote" @click="demoteTrack(tune._id, tune, tunes)">-</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -24,7 +24,7 @@
                                     </audio>
                                 </div>
                                 <div class="col-xs-1">
-                                    <button class="btn btn-default" @click="removeTrack(tune._id)">X</button>
+                                    <button class="btn btn-default" @click="removeTrack(tune._id), removeTrackPlaylist(tune.id)">X</button>
                                 </div>
                             </div>
                         </div>
@@ -44,22 +44,37 @@
         },
         mounted() {
             this.$store.dispatch("getMyTunes")
+            // this.$store.dispatch("getMyPlaylist")
         },
         methods: {
             removeTrack(trackId) {
                 this.$store.dispatch("removeTrack", trackId)
             },
-            promoteTrack(trackId) {
-                this.$store.dispatch("promoteTrack", trackId)
+            removeTrackPlaylist(trackId) {
+                // this.$store.dispatch("removeTrackPlaylist", trackId)
             },
-            demoteTrack(trackId) {
-                this.$store.dispatch("demoteTrack", trackId)
+            promoteTrack(trackId, tune, tunes) {
+                var payload = {                    
+                    trackId: trackId,
+                    tune: tune,
+                    tunes: tunes
+                }
+                this.$store.dispatch("promoteTrack", payload)
+            },
+            demoteTrack(trackId, tune, tunes) {
+                var payload = {                    
+                    trackId: trackId,
+                    tune: tune,
+                    tunes: tunes
+                }
+                this.$store.dispatch("demoteTrack", payload)
             }
-            
+
         },
         computed: {
             tunes() {
                 return this.$store.state.myTunes
+                // return this.$store.state.myPlaylist
             }
         },
 
@@ -89,7 +104,7 @@
         color: white;
     }
 
-    .vote{
+    .vote {
         padding: 0 1rem 0 1rem;
         font-size: 2rem;
     }

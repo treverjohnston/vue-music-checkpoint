@@ -20,13 +20,15 @@
                                 <div class="replacement">
                                     <div class="change">
                                         <div class="row">
-                                            <div class="col-xs-10">
+                                            <div class="col-xs-8">
                                                 <h3>{{song.artist}}</h3>
-                                                <h4>{{song.album}}</h4>
+                                                <div v-model="album">
+                                                    <h4>{{song.album}}</h4>
+                                                </div>
                                                 <h5>Album Cost: {{song.price}}</h5>
                                             </div>
                                             <div class="col-xs-1">
-                                                <button class="btn btn-default plus" @click="addToMyTunes(song)">+</button>
+                                                <button class="btn btn-default plus" @click="addToMyTunes(song), addToMyPlaylist(song)">+</button>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -54,7 +56,8 @@
         name: 'results',
         data() {
             return {
-                artist: ''
+                artist: '',
+                album: ''
             }
         },
         computed: {
@@ -65,9 +68,13 @@
         methods: {
             addToMyTunes(track) {
                 this.$store.dispatch('addToMyTunes', track)
+            },
+            addToMyPlaylist(track) {
+                // this.$store.dispatch('addToMyPlaylist', track)
             }
         }
     }
+
 </script>
 
 
@@ -150,5 +157,6 @@
         background-color: rgba(0, 0, 0, .5);
         font-size: 2rem;
         color: white;
+        margin-left: 2rem;
     }
 </style>
