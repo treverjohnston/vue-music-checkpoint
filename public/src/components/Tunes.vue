@@ -102,6 +102,8 @@
         background-color: transparent;
         font-size: 1rem;
         color: white;
+        width: 3rem;
+        height: 3rem;
     }
 
     .vote {
