@@ -218,7 +218,7 @@ var store = new vuex.Store({
               // res = JSON.parse(res);
               if (res.message){
                 console.log('account created')
-                dispatch('changeLog')
+                dispatch('login', obj)
               } else if (res.error){
                   alert("Invalid Email or password");
               }

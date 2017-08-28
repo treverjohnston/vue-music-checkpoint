@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div v-for="song in songs">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <div class="col-xs-12 col-lg-6 col-xl-4">
                         <div class="song">
                             <div class="row">
                                 <div class=" col-xs-6">

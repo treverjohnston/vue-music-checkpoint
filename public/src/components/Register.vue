@@ -13,12 +13,11 @@
                         </form>
                     </div>
                     <div v-else>
-                        <button class="btn btn-default"><a href="/">Return to Home</a></button>
+                        <button class="btn btn-default"><a href="/#/">Return to Home</a></button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <results></results> -->
     </div>
 </template>
 
