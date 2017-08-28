@@ -13,7 +13,11 @@
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
-    "mongoose": "^4.11.8"
+    "mongoose": "^4.11.8",
+    "jquery": "^3.2.1",
+    "vue": "^2.2.6",
+    "vue-router": "^2.3.1",
+    "vuex": "^2.3.1"
   },
   "engines":{
     "node": "8.1.4",
