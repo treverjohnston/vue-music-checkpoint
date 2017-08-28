@@ -88,10 +88,12 @@
         padding: 1rem 3rem 1rem 1rem;
         margin: 1rem;
         border-radius: 5px;
-        background-image: url("../assets/images/piano.jpg");
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-size: cover;
+        /* background-image: url("../assets/images/piano.jpg"); */
+        /* background-attachment: fixed; */
+        /* background-repeat: no-repeat; */
+        /* background-size: cover; */
+        /* background-color: transparent; */
+        border: 1px solid white;
     }
 
     .audio {
