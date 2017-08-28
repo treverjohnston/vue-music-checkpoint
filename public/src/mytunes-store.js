@@ -4,7 +4,7 @@ import $ from 'jquery'
 
 vue.use(vuex)
 
-var ip = process.env.PORT || "//localhost:3000"
+var ip = '//bcw-music.herokuapp.com' || '//localhost:3000'
 
 var store = new vuex.Store({
   state: {
