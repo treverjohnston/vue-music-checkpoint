@@ -4,8 +4,8 @@ import $ from 'jquery'
 
 vue.use(vuex)
 var production = window.location.host.includes('localhost')
-// var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
-var ip = '//bcw-music.herokuapp.com'
+var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
+// var ip = '//bcw-music.herokuapp.com'
 var store = new vuex.Store({
   state: {
     myTunes: [],
@@ -199,7 +199,7 @@ var store = new vuex.Store({
         })
     },
     login({commit, dispatch}, obj){
-      $.post(ip + "/login", obj)
+      $.post("//bcw-music.herokuapp.com/login", obj)
           .then((res) => {
               // res = JSON.parse(res);
               if (res.message){
