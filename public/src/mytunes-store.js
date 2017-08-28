@@ -4,7 +4,7 @@ import $ from 'jquery'
 
 vue.use(vuex)
 
-var ip = "//localhost:3000"
+var ip = process.env.PORT || "//localhost:3000"
 
 var store = new vuex.Store({
   state: {
@@ -204,6 +204,20 @@ var store = new vuex.Store({
               // res = JSON.parse(res);
               if (res.message){
                 console.log('logged in')
+                dispatch('changeLog')
+              } else if (res.error){
+                  alert("Invalid Email or password");
+              }
+
+          })
+          .catch(() => console.log('error'))
+  },
+    register({commit, dispatch}, obj){
+      $.post(ip + "/register", obj)
+          .then((res) => {
+              // res = JSON.parse(res);
+              if (res.message){
+                console.log('account created')
                 dispatch('changeLog')
               } else if (res.error){
                   alert("Invalid Email or password");
