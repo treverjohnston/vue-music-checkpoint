@@ -3,8 +3,8 @@ import vuex from 'vuex'
 import $ from 'jquery'
 
 vue.use(vuex)
-
-var ip = '//bcw-music.herokuapp.com' || '//localhost:3000'
+var production = !window.location.host.includes('localhost')
+var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
 
 var store = new vuex.Store({
   state: {
