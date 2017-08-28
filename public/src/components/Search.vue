@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-3">
-                <div v-if="loggedIn">
+                <div v-if="!loggedIn">
                     <form @submit.prevent="login()">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="email" v-model="email">
@@ -41,13 +41,11 @@
                 this.$store.dispatch("getMusicByArtist", this.artist)
             },
             login() {
-                //console.log(store.login)
                 var obj = {
                     email: this.email,
                     password: this.password
                 }
                 this.$store.dispatch('login', obj)
-                // toggleLogin()
             }
         },
 
