@@ -3,7 +3,7 @@ import vuex from 'vuex'
 import $ from 'jquery'
 
 vue.use(vuex)
-var production = !window.location.host.includes('localhost')
+var production = window.location.host.includes('localhost')
 var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
 
 var store = new vuex.Store({
@@ -222,7 +222,6 @@ var store = new vuex.Store({
               } else if (res.error){
                   alert("Invalid Email or password");
               }
-
           })
           .catch(() => console.log('error'))
   },
