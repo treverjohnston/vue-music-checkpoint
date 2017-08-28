@@ -6,18 +6,15 @@
                     <form @submit.prevent="login()">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="email" v-model="email">
+                            <p>email: a@b.com</p>
                         </div>
                         <input type="password" class="form-control" placeholder="Password" v-model="password">
+                        <p> password: abc</p>
                         <button type="submit" class="btn btn-default btn-login">Login</button>
                     </form>
                 </div>
             </div>
-            <div v-if="!loggedIn">
-                <div class="col-xs-offset-3 col-xs-1">
-                    <button class="btn btn-default"><a href="/#/register">Register</a></button>
-                </div>
-            </div>
-            <div class="col-xs-5">
+            <div class="col-xs-9">
                 <form class="form-inline text-center form" @submit.prevent="getMusic()">
                     <div class="form-group">
                         <input type="text" class="form-control" v-model="artist" placeholder="Search For Music" />
@@ -30,14 +27,21 @@
 </template>
 
 <script>
-    import Results from './Results'
     export default {
-        name: 'search',
+        name: 'log',
         data() {
             return {
                 artist: '',
                 email: '',
                 password: ''
+            }
+        },
+        computed: {
+            songs() {
+                return this.$store.state.results
+            },
+            loggedIn(){
+                return this.$store.state.log
             }
         },
         methods: {
@@ -49,43 +53,19 @@
                     email: this.email,
                     password: this.password
                 }
+                // if (type == 'login'){
                 this.$store.dispatch('login', obj)
+                // }
+                // if (type == 'reg'){
+                // this.$store.dispatch('register', obj)
+                // }
             }
-        },
-
-        computed: {
-            songs() {
-                return this.$store.state.results
-            },
-            loggedIn() {
-                return this.$store.state.log
-            },
-            ip() {
-                return this.$store.state.ip
-            }
-        },
-        components: {
-            Results
         }
     }
 
 </script>
-<style scoped>
-    p {
-        color: white;
-    }
 
-    .form {
-        padding: 2rem 0 3rem 0;
-    }
 
-    input {
-        background-color: transparent;
-        color: white;
-    }
+<style>
 
-    .btn {
-        background-color: transparent;
-        color: white;
-    }
 </style>

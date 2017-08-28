@@ -1,23 +1,11 @@
 <template>
   <div class="home">
-    <div class="container-fluid">
-      <div v-if="loggedIn">
-        <div class="row">
-          <div class="col-xs-9">
-            <div class="search">
-              <results></results>
-            </div>
-          </div>
-          <div class="col-xs-3">
-            <div class="list">
-              <tunes></tunes>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-else>
-        <notresults></notresults>
-      </div>
+    <search></search>
+    <div v-if="!loggedIn">
+      <results></results>
+    </div>
+    <div v-else>
+      <notresults></notresults>
     </div>
   </div>
 </template>
@@ -26,17 +14,23 @@
   import Results from './Results'
   import Notresults from './Notresults'
   import Tunes from './Tunes'
+  import Search from './Search'
   export default {
     name: 'home',
     data() {
       return {
-        loggedIn: true
       }
     },
     components: {
       Results,
       Tunes,
-      Notresults
+      Notresults,
+      Search
+    },
+    computed:{
+      loggedIn() {
+                return this.$store.state.log
+            }
     }
   }
 

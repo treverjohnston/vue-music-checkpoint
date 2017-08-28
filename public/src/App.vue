@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="loggedIn">
-      <search></search>
       <router-view></router-view>
-    </div>
-    <div v-else>
-      <search></search>
-      <results></results>
     </div>
   </div>
 </template>
