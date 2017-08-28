@@ -13,16 +13,20 @@
                         </form>
                     </div>
                     <div v-else>
-                        <button class="btn btn-default"><a href="/#/">Return to Home</a></button>
+                        <button class="btn btn-default"><a href="/#/">Search</a></button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-if="loggedIn">
+            <tunes></tunes>
         </div>
     </div>
 </template>
 
 <script>
     import Results from './Results'
+    import Tunes from './Tunes'
     export default {
         name: 'register',
         data() {
@@ -53,7 +57,8 @@
             }
         },
         components: {
-            Results
+            Results,
+            Tunes
         }
     }
 
@@ -66,5 +71,14 @@
     }
     .btn{
         margin-top: 2rem;
+        background-color: transparent;
+        color: white;
+    }
+    a{
+        color: white;
+    }
+    input{
+        background-color: transparent;
+        color: white;
     }
 </style>

@@ -130,6 +130,7 @@
         /* transform: translate(-50%, -50%);
           -ms-transform: translate(-50%, -50%) */
         /* margin-bottom: -10rem; */
+        /* background-color: transparent; */
     }
 
     .change {
