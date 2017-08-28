@@ -4,8 +4,8 @@ import $ from 'jquery'
 
 vue.use(vuex)
 var production = window.location.host.includes('localhost')
-var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
-// var ip = '//bcw-music.herokuapp.com'
+// var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
+var ip = '//bcw-music.herokuapp.com'
 var store = new vuex.Store({
   state: {
     myTunes: [],
