@@ -10,7 +10,8 @@ var store = new vuex.Store({
   state: {
     myTunes: [],
     results: [],
-    myPlaylist: []
+    myPlaylist: [],
+    log: false
   },
   mutations: {
     setResults(state, results) {
@@ -50,7 +51,10 @@ var store = new vuex.Store({
       var tracks = state.myTunes
 
       store.dispatch('putTracksAdd', tracks)
-    }
+    },
+    changeLog(state){
+        state.log = !state.log
+      }
   },
   actions: {
     getMusicByArtist({ commit, dispatch }, artist) {
@@ -193,7 +197,24 @@ var store = new vuex.Store({
         .fail(err => {
           console.error(err)
         })
-    }
+    },
+    login({commit, dispatch}, obj){
+      $.post(ip + "/login", obj)
+          .then((res) => {
+              // res = JSON.parse(res);
+              if (res.message){
+                console.log('logged in')
+                dispatch('changeLog')
+              } else if (res.error){
+                  alert("Invalid Email or password");
+              }
+
+          })
+          .catch(() => console.log('error'))
+  },
+  changeLog({commit, dispatch}){
+    commit('changeLog')
+  }
 
   }
 })

@@ -4,9 +4,13 @@ let Users = require('../models/user')
 
 //NOT--> /api/register
 router.post('/register', (req, res) => {
+  console.log(req)
   Users.create(req.body)
     .then((user) => {
+      // debugger
+      console.log(user)
       req.session.uid = user._id //We issue a JWT token
+      console.log('working')
       req.session.save()
       user.password = null
       delete user.password
@@ -22,17 +26,22 @@ router.post('/register', (req, res) => {
 
 
 router.post('/login', (req, res) => {
+  console.log('attempting login')
   Users.findOne({ email: req.body.email })
     .then(user => {
+      if (!user) {
+        return res.send({ error: 'Invaaalid lugin er passsawuuurd' })
+      }
       user.validatePassword(req.body.password)
         .then(valid => {
-          if(!valid){
-            return res.send({error: 'Invalid Email or Password'})
+          if (!valid) {
+            return res.send({ error: 'Invalid Email or Password' })
           }
           req.session.uid = user._id;
           req.session.save()
           user.password = null
           delete user.password
+          console.log('loggin in successfully')
           res.send({
             message: 'successfully logged in',
             data: user
@@ -58,14 +67,14 @@ router.delete('/logout', (req, res) => {
 })
 
 
-router.get('/authenticate', (req,res) => {
+router.get('/authenticate', (req, res) => {
   Users.findById(req.session.uid).then(user => {
-    return res.send ({
+    return res.send({
       data: user
     })
-  }).catch(err=>{
+  }).catch(err => {
     return res.send({
-      error:err
+      error: err
     })
   })
 })
