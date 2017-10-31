@@ -63,10 +63,14 @@
         computed: {
             songs() {
                 return this.$store.state.results
+            },
+            myTunes() {
+                return this.$store.state.myTunes
             }
         },
         methods: {
             addToMyTunes(track) {
+                track._id = this.myTunes.length+1
                 this.$store.dispatch('addToMyTunes', track)
             },
             addToMyPlaylist(track) {

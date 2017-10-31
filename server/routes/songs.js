@@ -14,14 +14,7 @@ var songSchema = new mongoose.Schema({
   price: { type: String, required: true },
   preview: { type: String, required: true }
 
-},{ _id: false })
-
-var playlistSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  id: { type: Array, required: true, default: [] }
 })
-
-var Playlist = mongoose.model('Playlist', playlistSchema)
 
 var Songs = mongoose.model('Song', songSchema)
 
@@ -48,6 +41,58 @@ router.post('/', function (req, res, next) {
     })
     .catch(next)
 })
+// router.get('/promote/:id', (req, res, next)=> {
+//   Songs.findById(req.params.id)
+//   .then(current=>{
+//     Songs.findById(current._id - 1)
+//     .then(replacement => {
+//       console.log(current)
+//       console.log(replacement)
+//       current._id = current._id - 1  
+//       current.save()
+//       .then((err)=>{
+//         if(!err){
+//           replacement._id = replacement._id + 1
+//           replacement.save()
+//           .then((err)=>{
+//             if(!err){
+//               res.send(message = 'worked')
+//             }
+//             else {
+//               res.send(message = '2')
+//             }
+//           })
+//         }
+//         else {
+//           res.send(message = '1')
+//         }
+
+//       })
+      
+//     })
+//   })
+//   .catch(next)
+// })
+
+// router.get('/demote/:id', (req, res, next)=>{
+//   Songs.findById(req.params.id)
+//   .then(current=>{
+//     Songs.findById(current._id + 1)
+//     .then(replacement => {
+//       current._id = current._id + 1
+//       replacement._id = replacement._id -1
+//       current.save()
+//       .then(()=>{
+//         res.send(message = 'You did it')
+//       })
+//       replacement.save()
+//       .then(()=>{
+//         res.send(message = 'You did it')
+//       })
+//     })
+//   })
+//   .catch(next)
+// })
 
 
 router.get('/:songId', function (req, res, next) {
@@ -81,6 +126,7 @@ router.put('/', (req, res, next) => {
   })
   .catch(next)
 })
+
 
 router.use(defaultErrorHandler)
 

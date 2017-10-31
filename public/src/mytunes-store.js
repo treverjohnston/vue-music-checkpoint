@@ -34,11 +34,7 @@ var store = new vuex.Store({
     },
     promoteTrack(state, trackId) {
       var song = state.myTunes.find(song => song._id == trackId)
-
-      var index = state.myTunes.indexOf(song)
-      state.myTunes.splice(index - 1, 0, song)
-      state.myTunes.splice(index + 1, 1)
-      var tracks = state.myTunes
+      var songRepl = state.myTunes.find(song=> song._id == trackId-1)
 
       store.dispatch('putTracksAdd', tracks)
     },
@@ -157,11 +153,11 @@ var store = new vuex.Store({
       $.ajax({
         contentType: 'application/json',
         method: 'PUT',
-        url: ip + '/api/songs/'
+        url: ip + '/api/promote/' + payload._id
       })
         .then(songs => {
           // console.log(songs)
-          commit('promoteTrack', payload.trackId)
+          dispatch('getTrack')
         })
         .fail(err => {
           console.error(err)
