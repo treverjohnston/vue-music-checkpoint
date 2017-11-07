@@ -35,22 +35,7 @@ var store = new vuex.Store({
       var tunes = state.myTunes
       store.dispatch('putTracksAdd', tunes)
     },
-    promoteTrack(state, trackId) {
-      var song = state.myTunes.find(song => song._id == trackId)
-      var songRepl = state.myTunes.find(song => song._id == trackId - 1)
-
-      store.dispatch('putTracksAdd', tracks)
-    },
-    demoteTrack(state, trackId) {
-      var song = state.myTunes.find(song => song._id == trackId)
-
-      var index = state.myTunes.indexOf(song)
-      state.myTunes.splice(index + 2, 0, song)
-      state.myTunes.splice(index, 1)
-      var tracks = state.myTunes
-
-      store.dispatch('putTracksAdd', tracks)
-    },
+    
     changeLog(state) {
       state.log = !state.log
     }
@@ -154,8 +139,8 @@ var store = new vuex.Store({
 
     promoteTrack({ commit, dispatch }, payload) {
 
-      // console.log(payload)
-      if (payload.tune.position > 1) {
+      console.log(payload)
+      if (payload.tune.position >= 1) {
         var toMove = {}
         // console.log(payload)
         for (var i = 0; i < payload.tunes.length; i++) {
