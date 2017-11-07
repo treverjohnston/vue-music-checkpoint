@@ -82,12 +82,12 @@
 </script>
 
 
-<style>
-    body {
+<style scoped>
+    /* body {
         background-image: url("../assets/images/background.jpg");
         overflow: auto;
-        /* z-index: -1; */
-        /* position: fixed; */
+        z-index: -1;
+        position: fixed;
         
         background-attachment: fixed;
         background-repeat: no-repeat;
@@ -97,7 +97,7 @@
         left: 0;
         background-size: cover;
         font-family: 'Slabo 27px', serif;
-    }
+    } */
 
     .title {
         padding: 1rem 0 1rem 0;

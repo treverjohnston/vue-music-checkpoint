@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
       <router-view></router-view>
     </div>
   </div>
@@ -26,5 +26,11 @@
 </script>
 
 <style>
-
+body {
+    background-image: url("./assets/images/background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Slabo 27px', serif;
+  }
 </style>

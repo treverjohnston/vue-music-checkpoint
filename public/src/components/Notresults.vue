@@ -42,14 +42,14 @@
 </script>
 
 
-<style>
-    body {
+<style scoped>
+    /* body {
         background-image: url("../assets/images/background.jpg");
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
         font-family: 'Slabo 27px', serif;
-    }
+    } */
 
     .title {
         padding: 1rem 0 1rem 0;

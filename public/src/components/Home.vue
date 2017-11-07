@@ -27,10 +27,10 @@
       Notresults,
       Search
     },
-    computed:{
+    computed: {
       loggedIn() {
-                return this.$store.state.log
-            }
+        return this.$store.state.log
+      }
     }
   }
 
@@ -38,6 +38,14 @@
 
 
 <style scoped>
+  body {
+    background-image: url("../assets/images/background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Slabo 27px', serif;
+  }
+
   .list {
     background-color: rgba(255, 255, 255, .2);
     border-radius: 5px;
@@ -48,5 +56,4 @@
     border-radius: 5px;
     padding: 2rem 0 2rem 0;
   }
-
 </style>
