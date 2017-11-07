@@ -70,7 +70,7 @@
         },
         methods: {
             addToMyTunes(track) {
-                track._id = this.myTunes.length+1
+                track.position = this.myTunes.length+1
                 this.$store.dispatch('addToMyTunes', track)
             },
             addToMyPlaylist(track) {

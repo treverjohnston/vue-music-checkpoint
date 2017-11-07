@@ -12,7 +12,8 @@ var songSchema = new mongoose.Schema({
   artist: { type: String, required: true },
   album: { type: String, required: true },
   price: { type: String, required: true },
-  preview: { type: String, required: true }
+  preview: { type: String, required: true },
+  position: { type: Number, required: true, default: 0 }
 
 })
 
@@ -22,8 +23,7 @@ var Songs = mongoose.model('Song', songSchema)
 // mySongs get
 router.get('/', function (req, res, next) {
   Songs.find({})
-  .then((songs) => {
-    // console.log('getting')
+    .then((songs) => {
       res.send(songs)
     })
     .catch(next)
@@ -31,69 +31,29 @@ router.get('/', function (req, res, next) {
 
 //mySongs post
 router.post('/', function (req, res, next) {
-  // console.log('at post')
-  // console.log(req.body)
   Songs.create(req.body)
     .then((song) => {
-      // console.log(req.body.title, 'added')s
-      // console.log(song)
       res.send(song)
     })
     .catch(next)
 })
-// router.get('/promote/:id', (req, res, next)=> {
-//   Songs.findById(req.params.id)
-//   .then(current=>{
-//     Songs.findById(current._id - 1)
-//     .then(replacement => {
-//       console.log(current)
-//       console.log(replacement)
-//       current._id = current._id - 1  
-//       current.save()
-//       .then((err)=>{
-//         if(!err){
-//           replacement._id = replacement._id + 1
-//           replacement.save()
-//           .then((err)=>{
-//             if(!err){
-//               res.send(message = 'worked')
-//             }
-//             else {
-//               res.send(message = '2')
-//             }
-//           })
-//         }
-//         else {
-//           res.send(message = '1')
-//         }
 
-//       })
-      
-//     })
-//   })
-//   .catch(next)
-// })
-
-// router.get('/demote/:id', (req, res, next)=>{
-//   Songs.findById(req.params.id)
-//   .then(current=>{
-//     Songs.findById(current._id + 1)
-//     .then(replacement => {
-//       current._id = current._id + 1
-//       replacement._id = replacement._id -1
-//       current.save()
-//       .then(()=>{
-//         res.send(message = 'You did it')
-//       })
-//       replacement.save()
-//       .then(()=>{
-//         res.send(message = 'You did it')
-//       })
-//     })
-//   })
-//   .catch(next)
-// })
-
+router.put('/promote/:songId', function (req, res, next) {
+  console.log('body', req.body)
+  var id = req.params.songId
+  var id2 = req.body.toMove._id
+  console.log('id', id)
+  Songs.findByIdAndUpdate(id, req.body.tune)
+    .then(song => {
+      res.send('1 done')
+      Songs.findByIdAndUpdate(id2, req.body.toMove)
+        .then(song => {
+          res.send('2 done')
+        })
+        .catch(next)
+    })
+    .catch(next)
+})
 
 router.get('/:songId', function (req, res, next) {
   let songId = req.params.songId
@@ -120,11 +80,11 @@ router.delete('/:songId', (req, res, next) => {
 
 router.put('/', (req, res, next) => {
   Songs.remove({})
-  .then(song=>{
-    console.log('songs deleted')
-    res.send({message: "deleted all songs"})
-  })
-  .catch(next)
+    .then(song => {
+      console.log('songs deleted')
+      res.send({ message: "deleted all songs" })
+    })
+    .catch(next)
 })
 
 

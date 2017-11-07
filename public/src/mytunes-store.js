@@ -4,8 +4,8 @@ import $ from 'jquery'
 
 vue.use(vuex)
 var production = window.location.host.includes('localhost')
-// var ip = production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
-var ip = '//bcw-music.herokuapp.com'
+var ip = !production ? '//bcw-music.herokuapp.com' : '//localhost:3000'
+// var ip = '//bcw-music.herokuapp.com'
 var store = new vuex.Store({
   state: {
     myTunes: [],
@@ -26,7 +26,10 @@ var store = new vuex.Store({
     },
     updateSongs(state, songs) {
       // debugger
-      state.myTunes = songs
+
+      state.myTunes = songs.sort(function (a, b) {
+        return a.position - b.position
+      })
     },
     retrieveTunes(state) {
       var tunes = state.myTunes
@@ -34,7 +37,7 @@ var store = new vuex.Store({
     },
     promoteTrack(state, trackId) {
       var song = state.myTunes.find(song => song._id == trackId)
-      var songRepl = state.myTunes.find(song=> song._id == trackId-1)
+      var songRepl = state.myTunes.find(song => song._id == trackId - 1)
 
       store.dispatch('putTracksAdd', tracks)
     },
@@ -48,9 +51,9 @@ var store = new vuex.Store({
 
       store.dispatch('putTracksAdd', tracks)
     },
-    changeLog(state){
-        state.log = !state.log
-      }
+    changeLog(state) {
+      state.log = !state.log
+    }
   },
   actions: {
     getMusicByArtist({ commit, dispatch }, artist) {
@@ -62,21 +65,21 @@ var store = new vuex.Store({
           let artistShort = ''
           let name = ''
           if (song.collectionName.length > 20 || song.trackName.length > 20) {
-              for (var i = 0; i < song.collectionName.length; i++) {
-                var char = song.collectionName[i];
-                if (artistShort.length < 21) {
-                  artistShort += char
-                }
-                if (artistShort.length == 20) {
-                  artistShort += '...'
-                }
+            for (var i = 0; i < song.collectionName.length; i++) {
+              var char = song.collectionName[i];
+              if (artistShort.length < 21) {
+                artistShort += char
               }
+              if (artistShort.length == 20) {
+                artistShort += '...'
+              }
+            }
             for (var i = 0; i < song.trackName.length; i++) {
               var char = song.trackName[i];
               if (name.length < 20) {
                 name += char
               }
-              if(name.length == 19){
+              if (name.length == 19) {
                 name += '...'
               }
             }
@@ -150,18 +153,71 @@ var store = new vuex.Store({
     },
 
     promoteTrack({ commit, dispatch }, payload) {
-      $.ajax({
-        contentType: 'application/json',
-        method: 'PUT',
-        url: ip + '/api/promote/' + payload._id
-      })
-        .then(songs => {
-          // console.log(songs)
-          dispatch('getTrack')
+
+      // console.log(payload)
+      if (payload.tune.position > 1) {
+        var toMove = {}
+        // console.log(payload)
+        for (var i = 0; i < payload.tunes.length; i++) {
+          var item = payload.tunes[i];
+          if (item.position == payload.tune.position - 1) {
+            toMove = item
+          }
+        }
+        toMove.position += 1
+        var obj = {
+          tune: payload.tune,
+          toMove: toMove
+        }
+        payload.tune.position -= 1
+        console.log('obj', obj)
+        $.ajax({
+          contentType: 'application/json',
+          method: 'PUT',
+          url: ip + '/api/songs/promote/' + payload.tune._id,
+          data: JSON.stringify(obj)
         })
-        .fail(err => {
-          console.error(err)
+          .then(songs => {
+            console.log(songs)
+            dispatch('getMyTunes')
+          })
+          .fail(err => {
+            console.error(err)
+          })
+      }
+
+    },
+    demoteTrack({ commit, dispatch }, payload) {
+
+      if (payload.tune.position < payload.tunes.length) {
+        var toMove = {}
+        for (var i = 0; i < payload.tunes.length; i++) {
+          var item = payload.tunes[i];
+          if (item.position == payload.tune.position + 1) {
+            toMove = item
+          }
+        }
+        toMove.position -= 1
+        var obj = {
+          tune: payload.tune,
+          toMove: toMove
+        }
+        payload.tune.position += 1
+        console.log('obj update', obj)
+        $.ajax({
+          contentType: 'application/json',
+          method: 'PUT',
+          url: ip + '/api/songs/promote/' + payload.tune._id,
+          data: JSON.stringify(obj)
         })
+          .then(songs => {
+            console.log(songs)
+            dispatch('getMyTunes')
+          })
+          .fail(err => {
+            console.error(err)
+          })
+      }
 
     },
 
@@ -179,51 +235,51 @@ var store = new vuex.Store({
           })
       }
     },
-    demoteTrack({ commit, dispatch }, payload) {
-      //this should decrease the position / upvotes and downvotes on the track
-      $.ajax({
-        contentType: 'application/json',
-        method: 'PUT',
-        url: ip + '/api/songs/'
-      })
-        .then(songs => {
-          // console.log(songs)
-          commit('demoteTrack', payload.trackId)
-        })
-        .fail(err => {
-          console.error(err)
-        })
-    },
-    login({commit, dispatch}, obj){
+    // demoteTrack({ commit, dispatch }, payload) {
+    //   //this should decrease the position / upvotes and downvotes on the track
+    //   $.ajax({
+    //     contentType: 'application/json',
+    //     method: 'PUT',
+    //     url: ip + '/api/songs/'
+    //   })
+    //     .then(songs => {
+    //       // console.log(songs)
+    //       commit('demoteTrack', payload.trackId)
+    //     })
+    //     .fail(err => {
+    //       console.error(err)
+    //     })
+    // },
+    login({ commit, dispatch }, obj) {
       $.post(ip + "/login", obj)
-          .then((res) => {
-              // res = JSON.parse(res);
-              if (res.message){
-                console.log('logged in')
-                dispatch('changeLog')
-              } else if (res.error){
-                  alert("Invalid Email or password");
-              }
+        .then((res) => {
+          // res = JSON.parse(res);
+          if (res.message) {
+            console.log('logged in')
+            dispatch('changeLog')
+          } else if (res.error) {
+            alert("Invalid Email or password");
+          }
 
-          })
-          .catch(() => console.log('error'))
-  },
-    register({commit, dispatch}, obj){
+        })
+        .catch(() => console.log('error'))
+    },
+    register({ commit, dispatch }, obj) {
       $.post(ip + "/register", obj)
-          .then((res) => {
-              // res = JSON.parse(res);
-              if (res.message){
-                console.log('account created')
-                dispatch('login', obj)
-              } else if (res.error){
-                  alert("Invalid Email or password");
-              }
-          })
-          .catch(() => console.log('error'))
-  },
-  changeLog({commit, dispatch}){
-    commit('changeLog')
-  }
+        .then((res) => {
+          // res = JSON.parse(res);
+          if (res.message) {
+            console.log('account created')
+            dispatch('login', obj)
+          } else if (res.error) {
+            alert("Invalid Email or password");
+          }
+        })
+        .catch(() => console.log('error'))
+    },
+    changeLog({ commit, dispatch }) {
+      commit('changeLog')
+    }
 
   }
 })
