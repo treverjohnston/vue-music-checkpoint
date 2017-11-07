@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="app">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
+  </div>
   </div>
 </template>
 
@@ -26,10 +26,18 @@
 </script>
 
 <style>
-body {
+  body {
     background-image: url("./assets/images/background.jpg");
+    overflow: auto;
+    z-index: -1;
+    /* position: fixed; */
+
     background-attachment: fixed;
     background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     background-size: cover;
     font-family: 'Slabo 27px', serif;
   }
