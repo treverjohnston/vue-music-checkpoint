@@ -2,10 +2,10 @@
     <div class="notresults">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-12 col-md-8">
                     <results></results>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-12 col-md-4">
                     <tunes></tunes>
                 </div>
             </div>

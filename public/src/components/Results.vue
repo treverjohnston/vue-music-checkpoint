@@ -86,9 +86,9 @@
     body {
         background-image: url("../assets/images/background.jpg");
         overflow: auto;
-        will-change: transform;
+        /* will-change: transform; */
         /* z-index: -500; */
-        position: fixed;
+        /* position: fixed; */
         width: 100%;
         height: 100%;
         top: 0;

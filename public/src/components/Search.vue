@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-12 col-sm-3">
                 <div v-if="!loggedIn">
                     <form @submit.prevent="login()">
                         <div class="form-group">
@@ -13,11 +13,11 @@
                 </div>
             </div>
             <div v-if="!loggedIn">
-                <div class="col-xs-offset-3 col-xs-1">
+                <div class="col-xs-12 col-sm-offset-3 col-sm-1">
                     <button class="btn btn-default"><a href="/#/register">Register</a></button>
                 </div>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-12 col-sm-5">
                 <form class="form-inline text-center form" @submit.prevent="getMusic()">
                     <div class="form-group">
                         <input type="text" class="form-control" v-model="artist" placeholder="Search For Music" />

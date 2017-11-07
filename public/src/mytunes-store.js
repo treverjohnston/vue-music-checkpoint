@@ -139,7 +139,7 @@ var store = new vuex.Store({
 
     promoteTrack({ commit, dispatch }, payload) {
 
-      console.log(payload)
+      // console.log(payload)
       if (payload.tune.position >= 1) {
         var toMove = {}
         // console.log(payload)
@@ -155,7 +155,7 @@ var store = new vuex.Store({
           toMove: toMove
         }
         payload.tune.position -= 1
-        console.log('obj', obj)
+        // console.log('obj', obj)
         $.ajax({
           contentType: 'application/json',
           method: 'PUT',
@@ -163,7 +163,7 @@ var store = new vuex.Store({
           data: JSON.stringify(obj)
         })
           .then(songs => {
-            console.log(songs)
+            // console.log(songs)
             dispatch('getMyTunes')
           })
           .fail(err => {
@@ -188,7 +188,7 @@ var store = new vuex.Store({
           toMove: toMove
         }
         payload.tune.position += 1
-        console.log('obj update', obj)
+        // console.log('obj update', obj)
         $.ajax({
           contentType: 'application/json',
           method: 'PUT',
@@ -196,7 +196,7 @@ var store = new vuex.Store({
           data: JSON.stringify(obj)
         })
           .then(songs => {
-            console.log(songs)
+            // console.log(songs)
             dispatch('getMyTunes')
           })
           .fail(err => {
@@ -240,7 +240,7 @@ var store = new vuex.Store({
         .then((res) => {
           // res = JSON.parse(res);
           if (res.message) {
-            console.log('logged in')
+            // console.log('logged in')
             dispatch('changeLog')
           } else if (res.error) {
             alert("Invalid Email or password");
