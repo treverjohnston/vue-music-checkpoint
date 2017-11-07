@@ -33,7 +33,7 @@
                 this.$store.dispatch('addToMyTunes', track)
             }
         },
-        components: {
+            components: {
             Tunes,
             Results
         }
@@ -45,11 +45,8 @@
 <style>
     body {
         background-image: url("../assets/images/background.jpg");
-        overflow: auto;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
         background-size: cover;
         font-family: 'Slabo 27px', serif;
     }
