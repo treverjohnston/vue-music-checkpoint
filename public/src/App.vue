@@ -38,6 +38,7 @@
     height: 100%;
     top: 0;
     left: 0;
+    padding-bottom: 20rem;
     background-size: cover;
     font-family: 'Slabo 27px', serif;
   }
